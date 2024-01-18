@@ -1,0 +1,30 @@
+def solution(args):
+    print(args)
+    fst = args[0]
+    count = 0
+    len_args = len(args)
+    argsf = ''
+    for i in range(1,len_args):
+        if count:
+            count -= 1
+            continue
+        if args[i] - args[i-1] == 1:        #проверка на последовательность из 2х
+            count = 0                       #2 числа последовательность
+            fst = args[i-1]                 #запомнить первый аргумент
+            while args[i] - args[i-1] == 1: #сколько чисел (count = последовательность - 1) 
+                i += 1
+                count += 1
+                if i == len_args:
+                    break
+            if count == 1:                                      #если 2 числа
+                argsf += str(fst) + ',' + str(fst + 1)          
+            else:                                               # > 2
+                argsf += str(fst) + '-' + str(fst + count)    
+        else:                           #добавление числа если нет последовательности
+            argsf += str(args[i-1])     
+        argsf += ','        #добавление запятых после каждого элемента
+    if count:
+        return argsf[:-1]       #срез запятой
+    else:
+        return argsf + str(args[len_args-1])
+## https://www.codewars.com/kata/51ba717bb08c1cd60f00002f/python
