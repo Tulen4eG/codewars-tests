@@ -1,0 +1,15 @@
+import re
+
+def top_3_words(text):
+    res = []
+
+    if not text.replace("'","").split(): return []
+    text = list(filter(None,re.split(";|,|\n|#|/| |\t|!|:|-|=|_|\?|\.", " ".join(text.lower().split()))))
+    words = list(set(text))
+    for word in words:
+        res.append(text.count(word))
+    maxes = sorted(zip(res, words), reverse=True)[:3]
+    for i in range(len(maxes)):
+        maxes[i] = maxes[i][1]
+    return maxes
+## https://www.codewars.com/kata/51e056fe544cf36c410000fb
